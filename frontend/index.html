@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/stylesheet.css" type="text/css"/>
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;400;500;800&display=swap" rel="stylesheet">   
+</head>
+<body>
+    <div id="toolbar">
+        <div id="logo">
+            <img id="logoimg" src="assets/logo.png">
+        </div>
+        <div id="searchbar">
+            <input id="searchtext" type="text" placeholder="Search..."/>
+        </div>
+        <div id="account">
+            <div id="tab1"></div>
+            <div id="tab2"></div>
+            <div id="tab3"></div>
+        </div>
+    </div>
+
+    <div id="sitewrapper">
+        <div id="newmessage">
+            <textarea id="messagetext" placeholder="Type what's on your mind..." cols="40" rows="5"></textarea>
+            <div id="messagebuttons">
+                <div id="counter"></div>
+                <div id="sendmessage">Wyślij</div>
+            </div>
+        </div>
+        <div id="messages">
+        </div>
+    </div>
+    
+</body>
+
+<script>
+    const counter = document.getElementById("counter");
+    const textArea = document.getElementById("messagetext");
+    counter.innerText = "0/200";
+
+    async function SendToBackend(item) {
+        const response = await fetch("http://localhost:4500/post", {
+            method: "POST",
+            // mode: 'cors',
+            // credentials: 'same-origin',
+            body: JSON.stringify(item),
+            headers: {
+            'Content-Type': 'application/json'
+            }
+        });
+        return response.json();
+    }
+
+    let obiekt = {
+        text: "cosieprosie"
+    };
+    
+    SendToBackend(obiekt);
+
+    fetch("http://localhost:4500/get").then(res => res.text())
+    .then(res => {
+        document.getElementById("messages").append(res);
+    })
+    .catch(error => console.log("Błąd: ", error));
+
+    textArea.addEventListener("input", ()=>{
+        let numberoftext = textArea.value.length;
+        counter.innerText = numberoftext + "/200";
+        if(numberoftext>200)counter.style.color = "red";
+        else counter.style.color = "black";
+    });
+
+    
+    //const Http = new XMLHttpRequest();
+    //Http.open("GET", 'http://localhost:4500/post/', true);
+    //Http.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    //Http.open("GET", '/server');
+    //Http.send();
+
+    //Http.send(undefined);
+    //Http.onload = function(){
+    //    document.getElementById("messages").append(Http.responseText);
+    //};
+</script>
+</html>
