@@ -6,7 +6,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-let temp = { }
+let posts = 1
+let postsbody = { }
 
 app.get('/', (req, res) => {
     res.send("Zinicjowany!");
@@ -14,14 +15,16 @@ app.get('/', (req, res) => {
 
 app.get('/get', (req, res) =>{
     //console.log("1");
-    res.send(temp["text"]);
+    postsbody["0"] = posts - 1;
+    res.send(postsbody);
 });
 
 app.post('/post', (req, res) => {
     //console.log("2");
-    temp = req.body;
-    console.log(temp);
-    res.status(200);
+    postsbody[posts] = req.body["text"];
+    console.log(postsbody[posts]);
+    posts++;
+    res.sendStatus(200);
 });
 
 app.listen(port, () => {
