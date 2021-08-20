@@ -5,93 +5,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/stylesheet.css" type="text/css"/>
-    <title>Document</title>
+    <title>Socialmedia</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;400;500;800&display=swap" rel="stylesheet">   
 </head>
 <body>
-    <div id="toolbar">
-        <div id="logo">
+    <header>
+        <div id="header-logo">
             <img id="logoimg" src="assets/logo.png">
         </div>
         <div id="searchbar">
             <input id="searchtext" type="text" placeholder="Search..."/>
         </div>
-        <div id="account">
-            <div id="tab1"></div>
-            <div id="tab2"></div>
-            <div id="tab3"></div>
+        <div id="header-account-btn">
+            <div class="btn-tab" id="tab1"></div>
+            <div class="btn-tab" id="tab2"></div>
+            <div class="btn-tab" id="tab3"></div>
         </div>
-    </div>
+    </header>
 
-    <div id="sitewrapper">
-        <div id="newmessage">
-            <textarea id="messagetext" placeholder="Type what's on your mind..." cols="40" rows="5"></textarea>
-            <div id="messagebuttons">
-                <div id="counter"></div>
-                <div id="sendmessage" onclick="SendToBackend()">Wyślij</div>
+    <main>
+        <div id="newpost">
+            <textarea id="newpost-text" placeholder="Type what's on your mind..." cols="40" rows="5"></textarea>
+            <div id="newpost-btns">
+                <div id="newpost-counter"></div>
+                <div id="newpost-send" onclick="SendToBackend()">Wyślij</div>
             </div>
         </div>
-        <div id="messages">
+        <div id="posts">
         </div>
-    </div>
+    </main>
     
+    <script src="assets/script.js"></script>
 </body>
-
-<script>
-    const counter = document.getElementById("counter");
-    const textArea = document.getElementById("messagetext");
-    counter.innerText = "0/200";
-    let posts = { };
-
-    async function SendToBackend() {
-
-        var item = {
-            text: document.getElementById("messagetext").value
-        }
-
-        const response = await fetch("http://localhost:4500/post", {
-            method: "POST",
-            // mode: 'cors',
-            // credentials: 'same-origin',
-            body: JSON.stringify(item),
-            headers: {
-            'Content-Type': 'application/json'
-            }
-        }).then(GetFromBackend());
-
-        return response.json();
-    }
-
-    // POBIERANIE OBIEKTU POSTS Z BACKEND
-    async function GetFromBackend(){
-        await fetch("http://localhost:4500/get").then(res => res.text())
-            .then(res => {
-                (posts = JSON.parse(res)).then(GetPosts());
-            })
-            .catch(error => console.log("Błąd: ", error));
-    }
-
-    async function GetPosts(){
-        console.log(posts["0"]);
-        try{
-            document.getElementById("messages").innerHTML = "";
-            for(i = 1; i <= posts["0"]; i++){
-                document.getElementById("messages").innerHTML +=`<div class = "posttext">${posts[i]}</div>`;
-            }
-        }
-        catch(err){
-            console.log(err);
-        }
-        
-    }
-
-    // LICZNIK ILOŚCI ZNAKÓW
-    textArea.addEventListener("input", ()=>{
-        let numberoftext = textArea.value.length;
-        counter.innerText = numberoftext + "/200";
-        if(numberoftext>200)counter.style.color = "red";
-        else counter.style.color = "black";
-    });
-</script>
 </html>

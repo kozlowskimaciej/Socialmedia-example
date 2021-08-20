@@ -9,7 +9,7 @@ body{
     padding: 0;
 }
 
-#toolbar{
+header{
     position: fixed;
     width: 100%;
     min-height: fit-content;
@@ -19,7 +19,7 @@ body{
     background-color: rgb(240, 240, 240);
 }
 
-#logo{
+#header-logo{
     max-height:40px;
     max-width: 40px;
     display: flex;
@@ -59,12 +59,12 @@ body{
     background-color: rgb(214, 214, 214);
 }
 
-#account{
+#header-account-btn{
     position:relative;
     margin-right: 20px;
 }
 
-#tab1{
+.btn-tab{
     left:0;
     top: 0;
     width:30px;
@@ -72,52 +72,33 @@ body{
     border-radius: 15px;
     background-color: #1DA1F2;
     z-index:9999;
-}
-
-#tab2{
     margin-top: 4px;
-    left:0;
-    top: 0;
-    width:30px;
-    height: 5px;
-    border-radius: 15px;
-    background-color: #1DA1F2;
-    z-index:9999;
-}
-
-#tab3{
-    margin-top: 4px;
-    left:0;
-    top: 0;
-    width:30px;
-    height: 5px;
-    border-radius: 15px;
-    background-color: #1DA1F2;
-    z-index:9999;
-}
-
-#tab1, #tab2, #tab3{
     transition: transform 200ms ease-in-out;
 }
 
-#account:hover #tab1, #account:hover #tab2, #account:hover #tab3{
+#tab1{
+    margin-top: 0px;
+}
+
+
+#header-account-btn:hover .btn-tab{
     transform: scaleX(1.2);
 }
 
-#sitewrapper{
+main{
     width:100%;
     display: flex;
     flex-flow: column;
     align-items: center;
 }
 
-#newmessage{
+#newpost{
     width: 80%;
     color:black;
     padding-top: 100px;
 }
 
-#messagetext{
+#newpost-text{
     background-color: rgb(240, 240, 240);
     outline: none;
     border: none;
@@ -133,18 +114,18 @@ body{
     font-weight: 500;
 }
 
-#counter{
+#newpost-counter{
     color:black;
 }
 
-#messagebuttons{
+#newpost-btns{
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
 }
 
-#sendmessage{
+#newpost-send{
     padding: 8px;
     color:white;
     border-radius: 10px;
