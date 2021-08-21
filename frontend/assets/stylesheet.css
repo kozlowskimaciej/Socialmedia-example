@@ -125,7 +125,7 @@ main{
     width: 100%;
 }
 
-#newpost-send{
+#newpost-send, #getposts-btn{
     padding: 8px;
     color:white;
     border-radius: 10px;

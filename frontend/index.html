@@ -29,11 +29,12 @@
             <textarea id="newpost-text" placeholder="Type what's on your mind..." cols="40" rows="5"></textarea>
             <div id="newpost-btns">
                 <div id="newpost-counter"></div>
-                <div id="newpost-send" onclick="SendToBackend()">Wyślij</div>
+                <div id="newpost-send" onclick="SendNewPost()">Wyślij</div>
             </div>
         </div>
         <div id="posts">
         </div>
+        <div id="getposts-btn" onclick="GetPosts()">Pobierz nowe posty</div>
     </main>
     
     <script src="assets/script.js"></script>

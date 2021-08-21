@@ -1,29 +1,54 @@
 const express = require('express');
 const cors = require('cors');
+const url = require('url');
 const port = 4500;
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-let posts = 1
-let postsbody = { }
-
-app.get('/', (req, res) => {
-    res.send("Zinicjowany!");
-});
+var array = [];
 
 app.get('/get', (req, res) =>{
-    //console.log("1");
-    postsbody["0"] = posts - 1;
-    res.send(postsbody);
+    var postscounter = req.query.posts;
+    console.log(postscounter);
+
+    var ToSendArray = [];
+
+    console.log(array.length);
+    var pc = array.length - 1 - postscounter
+    for(var i = pc; i > pc - 2 ; i--){
+        if(i < 0) break;
+        array[i];
+        ToSendArray.unshift(array[i]);
+    }
+    
+
+    if(ToSendArray.length <= 0) {res.sendStatus(204); console.log("Odrzucono");}
+    else {
+        var obj = {
+            'object': ToSendArray
+        }
+        console.log(ToSendArray);
+        res.send(obj);
+    }
 });
 
 app.post('/post', (req, res) => {
-    //console.log("2");
-    postsbody[posts] = req.body["text"];
-    console.log(postsbody[posts]);
-    posts++;
+    var tab = []
+
+    var dic = {
+        'body': req.body["text"],
+        'like_counter': 0,
+        'users': tab
+    }
+
+    array.push(dic);
+    console.log(array);
+    res.sendStatus(200);
+});
+
+app.post('/post/like', (req, res) => {
     res.sendStatus(200);
 });
 

@@ -1,49 +1,53 @@
-const counter = document.getElementById("counter");
-const textArea = document.getElementById("messagetext");
+const counter = document.getElementById("newpost-counter");
+const textArea = document.getElementById("newpost-text");
+const postArea = document.getElementById("posts");
 counter.innerText = "0/200";
-let posts = { };
+let postscounter = 0;
+var posts = [];
 
-async function SendToBackend() {
+async function SendNewPost() {
+
+    postArea.innerHTML = `<div class = "posttext">${textArea.value}</div>` + postArea.innerHTML;
 
     var item = {
-        text: document.getElementById("messagetext").value
+        text: textArea.value
     }
 
     const response = await fetch("http://localhost:4500/post", {
         method: "POST",
-        // mode: 'cors',
-        // credentials: 'same-origin',
         body: JSON.stringify(item),
         headers: {
         'Content-Type': 'application/json'
         }
-    }).then(GetFromBackend());
+    });
 
     return response.json();
 }
 
-// POBIERANIE OBIEKTU POSTS Z BACKEND
-async function GetFromBackend(){
-    await fetch("http://localhost:4500/get").then(res => res.text())
+async function GetPosts(){
+    await fetch(`http://localhost:4500/get?posts=${postscounter}`)
+        .then(res => res.text())
         .then(res => {
-            (posts = JSON.parse(res)).then(GetPosts());
+            posts = JSON.parse(res)["object"];
+            DisplayPosts();
         })
         .catch(error => console.log("Błąd: ", error));
+        
 }
 
-async function GetPosts(){
-    console.log(posts["0"]);
+async function DisplayPosts(){
     try{
-        document.getElementById("messages").innerHTML = "";
-        for(i = 1; i <= posts["0"]; i++){
-            document.getElementById("messages").innerHTML +=`<div class = "posttext">${posts[i]}</div>`;
+        for(var i = posts.length - 1; i >= 0; i--){
+            postArea.innerHTML +=`<div class = "posttext">${posts[i]['body']}</div>`;
+            postscounter++;
         }
     }
     catch(err){
         console.log(err);
     }
-    
 }
+
+GetPosts();
 
 // LICZNIK ILOŚCI ZNAKÓW
 textArea.addEventListener("input", ()=>{
