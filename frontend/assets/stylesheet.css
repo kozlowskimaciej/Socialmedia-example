@@ -1,6 +1,7 @@
 html{
     scroll-behavior: smooth;
-    font-family: 'Raleway', sans-serif !important;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
     font-size: 17px;
 }
 
@@ -110,7 +111,6 @@ main{
     height: 150px;
     resize: none;
     min-height: fit-content;
-    font-family: 'Raleway', sans-serif;
     font-weight: 500;
 }
 
@@ -140,6 +140,5 @@ main{
     width: 100%;
     font-size: 20px;
     min-height: fit-content;
-    font-family: 'Raleway', sans-serif;
     font-weight: 500;
 }
