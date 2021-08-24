@@ -8,7 +8,6 @@ var posts = [];
 const language = 'pl';
 
 moment.locale(language);
-//console.log(moment().format("[Utworzono: ]dddd, MMMM Do YYYY, h:mm"));
 
 async function SendNewPost() {
 
@@ -16,9 +15,6 @@ async function SendNewPost() {
     var localtime = moment(utctime).fromNow();
 
     utctime = utctime.format("DD.MM.Y HH:mm:ss");
-    //localtime = localtime.format("D.M.Y  H:mm");
-
-    console.log(localtime);
 
     postArea.innerHTML = `<div class = "posttext">${textArea.value}<div class = "postdate">${localtime}</div></div>` + postArea.innerHTML;
 
@@ -46,9 +42,11 @@ async function GetPosts() {
     await fetch(`http://localhost:4500/get?posts=${lastpost}`)
         .then(res => res.text())
         .then(res => {
-            console.log(res);
-            posts = JSON.parse(res)["object"];
-            DisplayPosts();
+            if (res !== "")
+            {
+                posts = JSON.parse(res)["object"];
+                DisplayPosts();
+            }
         })
         .catch(error => console.log("Błąd: ", error));
 }

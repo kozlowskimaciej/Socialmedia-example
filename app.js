@@ -13,38 +13,27 @@ const postsToShow = 2;
 
 app.get('/get', (req, res) => {
     var lastuuid = req.query.posts;
-    console.log("\nLast UUID: " + lastuuid);
 
     var ToSendArray = [];
 
     var counter = 0;
-    const tempArray = array
-    var revArray = tempArray;
-    revArray.reverse();
-
-    console.log(array);
-    console.log(revArray);
-
-    console.log("Array length: " + revArray.length);
-    console.log("Counter: " + counter);
+    //var revArray = JSON.parse(JSON.stringify(array));
 
     if (lastuuid === "none")
-        if (revArray.length > 0) lastuuid = revArray[0]["uuid"] + 1;
+        if (array.length > 0) lastuuid = array[0]["uuid"] + 1;
         else lastuuid = 0;
 
-    for (var element of revArray) {
+    for (var element of array) {
         if (counter >= postsToShow) break;
         else if (element["uuid"] < lastuuid) {
+            lastuuid=element["uuid"];
             ToSendArray.unshift(element);
             counter += 1;
         }
     };
 
-    //var counter = 0;
-
     if (ToSendArray.length <= 0) {
         res.sendStatus(204);
-        console.log("Odrzucono");
     }
     else {
         var obj = {
@@ -58,17 +47,16 @@ app.post('/post', (req, res) => {
 
     var dic = {
         uuid: newuuid,
+        date: req.body["date"],
         username: req.body["username"],
         body: req.body["body"],
-        date: req.body["date"],
         like_counter: 0,
         users: []
     }
 
     newuuid += 1;
 
-    array.push(dic);
-    //console.log(array);
+    array.unshift(dic);
     res.sendStatus(200);
 });
 
