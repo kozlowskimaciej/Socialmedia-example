@@ -175,7 +175,7 @@ main{
     width:96%;
     position: relative;
     display: flex;
-    justify-content: right;
+    justify-content: flex-end;
     bottom: 15px;
 }
 

@@ -47,8 +47,6 @@ app.post('/post', (req, res) => {
         users: []
     }
 
-    console.log(moment.utc(req.body["date"]).toDate());
-
     array.push(dic);
     console.log(array);
     res.sendStatus(200);

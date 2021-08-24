@@ -5,29 +5,35 @@ counter.innerText = "0/200";
 var postscounter = 0;
 const username = document.getElementById("header-username").innerText;
 var posts = [];
+const language = 'pl';
 
-//moment.locale('pl');
+moment.locale(language);
 //console.log(moment().format("[Utworzono: ]dddd, MMMM Do YYYY, h:mm"));
 
 async function SendNewPost() {
 
-    var localtime = moment.utc().valueOf();
+    var utctime = moment.utc().subtract(5, 'seconds');
+    var localtime = moment(utctime).fromNow();
+
+    utctime = utctime.format("DD.MM.Y HH:mm");
+    //localtime = localtime.format("D.M.Y  H:mm");
+    
+    console.log(localtime);
 
     postArea.innerHTML = `<div class = "posttext">${textArea.value}<div class = "postdate">${localtime}</div></div>` + postArea.innerHTML;
 
     var item = {
         username: username,
         body: textArea.value,
-        date: localtime
+        date: utctime
     }
-
-    console.log(item);
 
     const response = await fetch("http://localhost:4500/post", {
         method: "POST",
         body: JSON.stringify(item),
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
         }
     });
 
@@ -62,6 +68,6 @@ GetPosts();
 textArea.addEventListener("input", () => {
     let numberoftext = textArea.value.length;
     counter.innerText = numberoftext + "/200";
-    if (numberoftext > 200) counter.style.color = "red";
-    else counter.style.color = "black";
+    if (numberoftext > 200) counter.style.color = "#6e56bd";
+    else counter.style.color = "#8E929D";
 });
