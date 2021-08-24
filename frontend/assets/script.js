@@ -8,7 +8,6 @@ var posts = [];
 
 //moment.locale('pl');
 //console.log(moment().format("[Utworzono: ]dddd, MMMM Do YYYY, h:mm"));
-
 GetTime();
 
 async function SendNewPost() {
