@@ -47,9 +47,7 @@ app.post('/post', (req, res) => {
         users: []
     }
 
-    var date = new Date(dic["date"]).toUTCString();
-
-    console.log(date);
+    console.log(moment.utc(req.body["date"]).toDate());
 
     array.push(dic);
     console.log(array);

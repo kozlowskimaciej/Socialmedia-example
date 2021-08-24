@@ -3,21 +3,22 @@ const textArea = document.getElementById("newpost-text");
 const postArea = document.getElementById("posts");
 counter.innerText = "0/200";
 var postscounter = 0;
-const username = document.getElementById("header-account").innerText;
+const username = document.getElementById("header-username").innerText;
 var posts = [];
 
 //moment.locale('pl');
 //console.log(moment().format("[Utworzono: ]dddd, MMMM Do YYYY, h:mm"));
-GetTime();
 
 async function SendNewPost() {
 
-    postArea.innerHTML = `<div class = "posttext">${textArea.value}<div class = "postdate">${localDate}</div></div>` + postArea.innerHTML;
+    var localtime = moment.utc().valueOf();
+
+    postArea.innerHTML = `<div class = "posttext">${textArea.value}<div class = "postdate">${localtime}</div></div>` + postArea.innerHTML;
 
     var item = {
         username: username,
         body: textArea.value,
-        date: Date.now()
+        date: localtime
     }
 
     console.log(item);
@@ -39,15 +40,6 @@ async function GetPosts() {
         .then(res => {
             posts = JSON.parse(res)["object"];
             DisplayPosts();
-        })
-        .catch(error => console.log("Błąd: ", error));
-}
-
-async function GetTime() {
-    await fetch(`http://worldtimeapi.org/api/ip`)
-        .then(res => res.text())
-        .then(res => {
-            console.log(res);
         })
         .catch(error => console.log("Błąd: ", error));
 }
