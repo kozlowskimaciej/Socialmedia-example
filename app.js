@@ -8,21 +8,39 @@ app.use(cors());
 app.use(express.json());
 
 var array = [];
+var newuuid = 0;
+const postsToShow = 2;
 
 app.get('/get', (req, res) => {
-    var postscounter = req.query.posts;
-    console.log(postscounter);
+    var lastuuid = req.query.posts;
+    console.log("\nLast UUID: " + lastuuid);
 
     var ToSendArray = [];
 
-    console.log(array.length);
-    var pc = array.length - 1 - postscounter
-    for (var i = pc; i > pc - 2; i--) {
-        if (i < 0) break;
-        array[i];
-        ToSendArray.unshift(array[i]);
-    }
+    var counter = 0;
+    const tempArray = array
+    var revArray = tempArray;
+    revArray.reverse();
 
+    console.log(array);
+    console.log(revArray);
+
+    console.log("Array length: " + revArray.length);
+    console.log("Counter: " + counter);
+
+    if (lastuuid === "none")
+        if (revArray.length > 0) lastuuid = revArray[0]["uuid"] + 1;
+        else lastuuid = 0;
+
+    for (var element of revArray) {
+        if (counter >= postsToShow) break;
+        else if (element["uuid"] < lastuuid) {
+            ToSendArray.unshift(element);
+            counter += 1;
+        }
+    };
+
+    //var counter = 0;
 
     if (ToSendArray.length <= 0) {
         res.sendStatus(204);
@@ -32,7 +50,6 @@ app.get('/get', (req, res) => {
         var obj = {
             'object': ToSendArray
         }
-        console.log(ToSendArray);
         res.send(obj);
     }
 });
@@ -40,6 +57,7 @@ app.get('/get', (req, res) => {
 app.post('/post', (req, res) => {
 
     var dic = {
+        uuid: newuuid,
         username: req.body["username"],
         body: req.body["body"],
         date: req.body["date"],
@@ -47,8 +65,10 @@ app.post('/post', (req, res) => {
         users: []
     }
 
+    newuuid += 1;
+
     array.push(dic);
-    console.log(array);
+    //console.log(array);
     res.sendStatus(200);
 });
 

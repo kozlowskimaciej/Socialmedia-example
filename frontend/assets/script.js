@@ -2,7 +2,7 @@ const counter = document.getElementById("newpost-counter");
 const textArea = document.getElementById("newpost-text");
 const postArea = document.getElementById("posts");
 counter.innerText = "0/200";
-var postscounter = 0;
+var lastpost = "none";
 const username = document.getElementById("header-username").innerText;
 var posts = [];
 const language = 'pl';
@@ -15,14 +15,14 @@ async function SendNewPost() {
     var utctime = moment.utc().subtract(5, 'seconds');
     var localtime = moment(utctime).fromNow();
 
-    utctime = utctime.format("DD.MM.Y HH:mm");
+    utctime = utctime.format("DD.MM.Y HH:mm:ss");
     //localtime = localtime.format("D.M.Y  H:mm");
-    
+
     console.log(localtime);
 
     postArea.innerHTML = `<div class = "posttext">${textArea.value}<div class = "postdate">${localtime}</div></div>` + postArea.innerHTML;
 
-    var item = {
+    var post = {
         username: username,
         body: textArea.value,
         date: utctime
@@ -30,7 +30,7 @@ async function SendNewPost() {
 
     const response = await fetch("http://localhost:4500/post", {
         method: "POST",
-        body: JSON.stringify(item),
+        body: JSON.stringify(post),
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
@@ -41,9 +41,12 @@ async function SendNewPost() {
 }
 
 async function GetPosts() {
-    await fetch(`http://localhost:4500/get?posts=${postscounter}`)
+    if (posts.length !== 0) lastpost = posts[0]['uuid'];
+
+    await fetch(`http://localhost:4500/get?posts=${lastpost}`)
         .then(res => res.text())
         .then(res => {
+            console.log(res);
             posts = JSON.parse(res)["object"];
             DisplayPosts();
         })
@@ -54,7 +57,6 @@ async function DisplayPosts() {
     try {
         for (var i = posts.length - 1; i >= 0; i--) {
             postArea.innerHTML += `<div class = "posttext">${posts[i]['body']}</div>`;
-            postscounter++;
         }
     }
     catch (err) {
