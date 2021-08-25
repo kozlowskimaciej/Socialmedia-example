@@ -1,67 +1,62 @@
-const express = require('express');
-const cors = require('cors');
-const url = require('url');
-const port = 4500;
-const app = express();
+//PUBLIC CONSTANT
+const Express = require('Express');
+const Cors = require('Cors');
+const Url = require('Url');
+const Port = 4500;
+const App = Express();
+const NumberPostsToShow = 2;
 
-app.use(cors());
-app.use(express.json());
+//USES
+App.use(Cors());
+App.use(Express.json());
 
-var array = [];
-var newuuid = 0;
-const postsToShow = 2;
+//PUBLIC VARIABLES
+var PostsArray = [];
+var NextUuidToAssign = 0;
 
-app.get('/get', (req, res) => {
-    var lastuuid = req.query.posts;
+//SENDING POSTS
+App.get('/get', (req, res) => {
+    var lastSendUuid = req.query.posts;
+    var toSendArray = [];
+    var postsCounter = 0;
 
-    var ToSendArray = [];
+    if (lastSendUuid === "none")
+        if (PostsArray.length > 0) lastSendUuid = PostsArray[0]["uuid"] + 1;
+        else lastSendUuid = 0;
 
-    var counter = 0;
-
-    if (lastuuid === "none")
-        if (array.length > 0) lastuuid = array[0]["uuid"] + 1;
-        else lastuuid = 0;
-
-    for (var element of array) {
-        if (counter >= postsToShow) break;
-        else if (element["uuid"] < lastuuid) {
-            lastuuid=element["uuid"];
-            ToSendArray.unshift(element);
-            counter += 1;
+    for (var element of PostsArray) {
+        if (postsCounter >= NumberPostsToShow) break;
+        else if (element["uuid"] < lastSendUuid) {
+            lastSendUuid=element["uuid"];
+            toSendArray.unshift(element);
+            postsCounter += 1;
         }
     };
 
-    if (ToSendArray.length <= 0) {
-        res.sendStatus(204);
-    }
+    if (toSendArray.length <= 0) res.sendStatus(204);
     else {
         var obj = {
-            'object': ToSendArray
+            'object': toSendArray
         }
         res.send(obj);
     }
 });
 
-app.post('/post', (req, res) => {
-
-    var dic = {
-        uuid: newuuid,
+//RECEIVING POSTS
+App.post('/post', (req, res) => {
+    var postProperties = {
+        uuid: NextUuidToAssign,
         date: req.body["date"],
         username: req.body["username"],
         body: req.body["body"],
         like_counter: 0,
         users: []
     }
-
-    newuuid += 1;
-
-    array.unshift(dic);
+    NextUuidToAssign += 1;
+    PostsArray.unshift(postProperties);
 });
 
-app.post('/post/like', (req, res) => {
-    res.sendStatus(200);
-});
-
-app.listen(port, () => {
+//START OF THE APPLICATION
+App.listen(Port, () => {
     console.log("Server is running...");
 });
