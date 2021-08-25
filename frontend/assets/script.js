@@ -2,7 +2,7 @@ const username = document.getElementById("header-username").innerText;
 const counter = document.getElementById("newpost-counter");
 const textArea = document.getElementById("newpost-text");
 const postArea = document.getElementById("posts");
-const userAvatar = document.getElementById("header-useravatarimage");
+const userAvatar = document.getElementById("header-useravatarimage").getAttribute("src");
 const language = 'pl';
 counter.innerText = "0/200";
 
@@ -11,27 +11,53 @@ var posts = [];
 
 moment.locale(language);
 
-function DrawPost(postbody = "", postcreator = username, postdate = "", postavatar = userAvatar) {
+function DrawPost(postbody = "", postcreator = username, postdate = "", postavatar = userAvatar, type = 0) {
     var timeFromNow = moment(postdate).fromNow();
     console.log(postcreator + " " + postavatar + timeFromNow);
-    newpostdiv = document.createElement("div");
-    newpostdiv.classList.add("posttext");
-    newpostdiv.innerText = postbody;
+
+    //TWORZYMY OPAKUNEK POSTA
+    newpostwrapper = document.createElement("div");
+    newpostwrapper.classList.add("post-wrapper");
+
+    //TWORZYMY NAGŁÓWEK POSTA
+    newpostinfo = document.createElement("div");
+    newpostinfo.classList.add("post-info");
+    newpostinfo.setAttribute("postcreationdate", timeFromNow);
+
+    //DODAJEMY AWATAR DO NAGŁÓWKA
+    newpostavatar = document.createElement("img");
+    newpostavatar.setAttribute("src", postavatar);
+
+    newpostnickname = document.createElement("div");
+    newpostnickname.classList.add("post-postcreator");
+    newpostnickname.innerText = postcreator;
     
-    document.getElementById('posts').prepend(newpostdiv);
+    //TWORZYMY GŁÓWNĄ CZĘŚĆ POSTA
+    newpostbody = document.createElement("div");
+    newpostbody.classList.add("post-body");
+    newpostbody.innerText = postbody;
+
+
+    newpostwrapper.append(newpostbody);
+
+    newpostwrapper.prepend(newpostinfo);
+    newpostinfo.append(newpostavatar);
+    newpostinfo.append(newpostnickname);
+    
+    if(type)document.getElementById('posts').prepend(newpostwrapper);
+    else document.getElementById('posts').append(newpostwrapper);
 }
 
 async function SendNewPost() {
 
-    var utctime = moment.format().utc();
+    const postCreationDate = moment.utc().format();
     //utctime = utctime.format("DD.MM.Y HH:mm:ss")
 
-    DrawPost(textArea.value, username, utctime);
+    DrawPost(textArea.value, username, postCreationDate, userAvatar, 1);
 
     var post = {
         username: username,
         body: textArea.value,
-        date: utctime
     }
 
     const response = await fetch("http://localhost:4500/post", {
@@ -54,7 +80,7 @@ async function GetPosts() {
         .then(res => {
             if (res !== "")
             {
-                posts = JSON.parse(res)["object"];
+                posts = JSON.parse(res)["postsArray"];
                 DisplayPosts();
             }
         })

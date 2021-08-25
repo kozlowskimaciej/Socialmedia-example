@@ -2,11 +2,13 @@
 const Express = require('express');
 const Cors = require('cors');
 const Url = require('url');
+const Moment = require('moment');
 const Port = 4500;
 const App = Express();
-const NumberPostsToShow = 2;
+const NumberPostsToShow = 5;
 
 //USES
+Moment().format(); 
 App.use(Cors());
 App.use(Express.json());
 
@@ -35,18 +37,21 @@ App.get('/get', (req, res) => {
 
     if (toSendArray.length <= 0) res.sendStatus(204);
     else {
-        var obj = {
-            'object': toSendArray
+        var packedPosts = {
+            'postsArray': toSendArray
         }
-        res.send(obj);
+        res.send(packedPosts);
+        console.log(packedPosts);
     }
 });
 
 //RECEIVING POSTS
 App.post('/post', (req, res) => {
+    const postCreationDate = Moment.utc().format();
+
     var postProperties = {
         uuid: NextUuidToAssign,
-        date: req.body["date"],
+        date: postCreationDate,
         username: req.body["username"],
         body: req.body["body"],
         like_counter: 0,

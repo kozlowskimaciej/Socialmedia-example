@@ -119,7 +119,7 @@ label{
 
 main{
     display: grid;
-    grid-template-columns: 30% 40% 30%;
+    grid-template-columns: 1fr minmax(500px,40%) 1fr;
 }
 
 #allposts-wrapper{
@@ -134,9 +134,9 @@ main{
     align-items: center;
 }
 
-.post-body{
+.newpost-body{
     display: flex;
-    align-items: center;
+    justify-content: center;
     flex-direction: column;
     margin-top: 25px;
     width: 100%;
@@ -224,6 +224,64 @@ main{
 
 #newpost-send svg{
     margin-right: 5px;
+}
+
+.post-wrapper{
+    margin-top: 50px;
+    position: relative;
+    width:100%;
+}
+
+.post-info{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    color:white;
+    left: -20px;
+    top: -20px;
+    height: 41px;
+    width: 160px;
+    background: linear-gradient(145deg, #6946AC 0%, #6e56bd 100%);
+    border-radius: 50px;
+}
+
+.post-info::before{
+    position: absolute;
+    color: #8E929D;
+    font-size: 0.7rem;
+    width: max-content;
+    left: 170px;
+    top: 24px;
+    content: attr(postcreationdate);
+}
+
+
+.post-info img{
+    position: relative;
+    left: 3px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50px;
+}
+
+.post-postcreator{
+    display: flex;
+    font-size: 0.9rem;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.post-body{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 25px;
+    padding: 30px 15px 15px 15px;
+    background-color: white;
+    border-radius: 15px;
+    border: 2px #E2E4E9 solid;
 }
 
 #allposts-seperator{
