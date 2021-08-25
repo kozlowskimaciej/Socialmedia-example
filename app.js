@@ -17,7 +17,6 @@ app.get('/get', (req, res) => {
     var ToSendArray = [];
 
     var counter = 0;
-    //var revArray = JSON.parse(JSON.stringify(array));
 
     if (lastuuid === "none")
         if (array.length > 0) lastuuid = array[0]["uuid"] + 1;
@@ -57,7 +56,6 @@ app.post('/post', (req, res) => {
     newuuid += 1;
 
     array.unshift(dic);
-    res.sendStatus(200);
 });
 
 app.post('/post/like', (req, res) => {

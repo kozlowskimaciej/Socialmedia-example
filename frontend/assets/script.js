@@ -1,22 +1,32 @@
+const username = document.getElementById("header-username").innerText;
 const counter = document.getElementById("newpost-counter");
 const textArea = document.getElementById("newpost-text");
 const postArea = document.getElementById("posts");
-counter.innerText = "0/200";
-var lastpost = "none";
-const username = document.getElementById("header-username").innerText;
-var posts = [];
+const userAvatar = document.getElementById("header-useravatarimage");
 const language = 'pl';
+counter.innerText = "0/200";
+
+var lastpost = "none";
+var posts = [];
 
 moment.locale(language);
 
+function DrawPost(postbody = "", postcreator = username, postdate = "", postavatar = userAvatar) {
+    var timeFromNow = moment(postdate).fromNow();
+    console.log(postcreator + " " + postavatar + timeFromNow);
+    newpostdiv = document.createElement("div");
+    newpostdiv.classList.add("posttext");
+    newpostdiv.innerText = postbody;
+    
+    document.getElementById('posts').prepend(newpostdiv);
+}
+
 async function SendNewPost() {
 
-    var utctime = moment.utc().subtract(5, 'seconds');
-    var localtime = moment(utctime).fromNow();
+    var utctime = moment.format().utc();
+    //utctime = utctime.format("DD.MM.Y HH:mm:ss")
 
-    utctime = utctime.format("DD.MM.Y HH:mm:ss");
-
-    postArea.innerHTML = `<div class = "posttext">${textArea.value}<div class = "postdate">${localtime}</div></div>` + postArea.innerHTML;
+    DrawPost(textArea.value, username, utctime);
 
     var post = {
         username: username,
@@ -54,7 +64,7 @@ async function GetPosts() {
 async function DisplayPosts() {
     try {
         for (var i = posts.length - 1; i >= 0; i--) {
-            postArea.innerHTML += `<div class = "posttext">${posts[i]['body']}</div>`;
+            DrawPost(posts[i]['body'], posts[i]['username'], posts[i]['date']);
         }
     }
     catch (err) {
