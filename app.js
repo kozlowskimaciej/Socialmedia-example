@@ -1,7 +1,7 @@
 //PUBLIC CONSTANT
-const Express = require('Express');
-const Cors = require('Cors');
-const Url = require('Url');
+const Express = require('express');
+const Cors = require('cors');
+const Url = require('url');
 const Port = 4500;
 const App = Express();
 const NumberPostsToShow = 2;
