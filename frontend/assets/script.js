@@ -24,6 +24,30 @@ function success(pos) {
     console.log(`Latitude : ${crd.latitude}`);
     console.log(`Longitude: ${crd.longitude}`);
     console.log(`More or less ${crd.accuracy} meters.`);
+
+    var map = new ol.Map({
+        target: 'map',
+        layers: [
+          new ol.layer.Tile({
+            source: new ol.source.OSM()
+          })
+        ],
+        view: new ol.View({
+          center: ol.proj.fromLonLat([crd.longitude, crd.latitude]),
+          zoom: 17
+        })
+    });
+
+    var layer = new ol.layer.Vector({
+        source: new ol.source.Vector({
+            features: [
+                new ol.Feature({
+                    geometry: new ol.geom.Point(ol.proj.fromLonLat([crd.longitude, crd.latitude]))
+                })
+            ]
+        })
+    });
+    map.addLayer(layer);
 };
 
 function error(err) {
@@ -31,6 +55,8 @@ function error(err) {
 };
 
 navigator.geolocation.getCurrentPosition(success, error, options);
+
+
 
 function checkForBottom(){
     setInterval( ()=>{if(window.innerHeight+window.scrollY>document.body.clientHeight-50)GetPosts();}, 1000);

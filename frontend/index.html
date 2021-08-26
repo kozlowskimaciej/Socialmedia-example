@@ -10,6 +10,45 @@
     <script>
         moment().format();
     </script>    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.6.1/css/ol.css" type="text/css">
+    <style>
+      .map {
+        height: 250px;
+        width: 510px;
+      }
+
+      .ol-control{
+          background: none !important;
+      }
+
+      .ol-control button{
+        background-color: rgba(105, 70, 172,.5);
+      }
+
+      .ol-control button:hover{
+        background-color: rgba(106, 70, 172, 0.842);
+      }
+
+      /* .ol-zoom-out,
+      .ol-zoom-in{
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50px !important;
+      } */
+
+      canvas {
+          border-radius: 15px;
+      }
+
+      ul {
+          width: max-content;
+          font-size: 10px;
+          bottom: -5px;
+          background-color: rgba(255, 255, 255, 0.5);
+      }rgba(255, 255, 255, 0.5)
+    </style>
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.6.1/build/ol.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com"> 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap" rel="stylesheet">   
@@ -48,6 +87,9 @@
             </div>
         </div>
     </header>
+
+    <div id="map" class="map"></div>
+    
 
     <main>
         <div id="allposts-wrapper">
