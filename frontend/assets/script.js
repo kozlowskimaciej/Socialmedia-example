@@ -11,12 +11,11 @@ var posts = [];
 
 moment.locale(language);
 
-// var x = setInterval(function(){
-//     console.log(window.innerHeight+window.scrollY+" "+document.body.clientHeight)}, 100);
-
-document.addEventListener('scroll',()=>{
+function checkForBottom(){
     setInterval( ()=>{if(window.innerHeight+window.scrollY>document.body.clientHeight-50)GetPosts();}, 1000);
-})
+}
+
+document.addEventListener('scroll',checkForBottom);
 
 function DrawPost(postbody = "", postcreator = username, postdate = "", postavatar = userAvatar, type = 0) {
     var timeFromNow = moment(postdate).fromNow();
@@ -89,7 +88,10 @@ async function GetPosts() {
             {
                 posts = JSON.parse(res)["postsArray"];
                 DisplayPosts();
-            }// else document.getElementById('allposts-bottom').innerText = "Koniec strony";
+            } else{
+                document.removeEventListener('scroll',checkForBottom);
+                document.getElementById('posts-loading').innerText = "Koniec strony";
+            }
         })
         .catch(error => console.log("Błąd: ", error));
 }

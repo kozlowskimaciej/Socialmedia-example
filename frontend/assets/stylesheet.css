@@ -304,7 +304,7 @@ main{
     border-top:#E3E5EA 2px dashed;
 }
 
-.posts-loading{
+#posts-loading{
     width: 30px;
     height: 30px;
     border-radius: 50px;
