@@ -282,6 +282,7 @@ main{
     background-color: white;
     border-radius: 15px;
     border: 2px #E2E4E9 solid;
+    word-wrap: break-word;
 }
 
 #allposts-seperator{
@@ -301,4 +302,27 @@ main{
     left: -20%;
     top: -10px;
     border-top:#E3E5EA 2px dashed;
+}
+
+.posts-loading{
+    width: 30px;
+    height: 30px;
+    border-radius: 50px;
+    background-color: #6946AC;
+    animation: spinning_wheel 1s ease infinite;
+}
+
+@keyframes spinning_wheel {
+    0%{
+        background-color: #6946AC;
+        transform: rotateX(0deg);
+    }
+    50%{
+        background-color: #8E929D;
+        transform: rotateX(180deg);
+    }
+    100%{
+        background-color: #6946AC;
+        transform: rotateX(360deg);
+    }
 }

@@ -11,41 +11,48 @@ var posts = [];
 
 moment.locale(language);
 
+// var x = setInterval(function(){
+//     console.log(window.innerHeight+window.scrollY+" "+document.body.clientHeight)}, 100);
+
+document.addEventListener('scroll',()=>{
+    setInterval( ()=>{if(window.innerHeight+window.scrollY>document.body.clientHeight-50)GetPosts();}, 1000);
+})
+
 function DrawPost(postbody = "", postcreator = username, postdate = "", postavatar = userAvatar, type = 0) {
     var timeFromNow = moment(postdate).fromNow();
     console.log(postcreator + " " + postavatar + timeFromNow);
 
     //TWORZYMY OPAKUNEK POSTA
-    newpostwrapper = document.createElement("div");
-    newpostwrapper.classList.add("post-wrapper");
+    newpostWrapper = document.createElement("div");
+    newpostWrapper.classList.add("post-wrapper");
 
     //TWORZYMY NAGŁÓWEK POSTA
-    newpostinfo = document.createElement("div");
-    newpostinfo.classList.add("post-info");
-    newpostinfo.setAttribute("postcreationdate", timeFromNow);
+    newpostInfo = document.createElement("div");
+    newpostInfo.classList.add("post-info");
+    newpostInfo.setAttribute("postcreationdate", timeFromNow);
 
     //DODAJEMY AWATAR DO NAGŁÓWKA
-    newpostavatar = document.createElement("img");
-    newpostavatar.setAttribute("src", postavatar);
+    newpostAvatar = document.createElement("img");
+    newpostAvatar.setAttribute("src", postavatar);
 
-    newpostnickname = document.createElement("div");
-    newpostnickname.classList.add("post-postcreator");
-    newpostnickname.innerText = postcreator;
+    newpostNickname = document.createElement("div");
+    newpostNickname.classList.add("post-postcreator");
+    newpostNickname.innerText = postcreator;
     
     //TWORZYMY GŁÓWNĄ CZĘŚĆ POSTA
-    newpostbody = document.createElement("div");
-    newpostbody.classList.add("post-body");
-    newpostbody.innerText = postbody;
+    newpostBody = document.createElement("div");
+    newpostBody.classList.add("post-body");
+    newpostBody.innerText = postbody;
 
 
-    newpostwrapper.append(newpostbody);
+    newpostWrapper.append(newpostBody);
 
-    newpostwrapper.prepend(newpostinfo);
-    newpostinfo.append(newpostavatar);
-    newpostinfo.append(newpostnickname);
+    newpostWrapper.prepend(newpostInfo);
+    newpostInfo.append(newpostAvatar);
+    newpostInfo.append(newpostNickname);
     
-    if(type)document.getElementById('posts').prepend(newpostwrapper);
-    else document.getElementById('posts').append(newpostwrapper);
+    if(type)document.getElementById('posts').prepend(newpostWrapper);
+    else document.getElementById('posts').append(newpostWrapper);
 }
 
 async function SendNewPost() {
@@ -82,7 +89,7 @@ async function GetPosts() {
             {
                 posts = JSON.parse(res)["postsArray"];
                 DisplayPosts();
-            }
+            }// else document.getElementById('allposts-bottom').innerText = "Koniec strony";
         })
         .catch(error => console.log("Błąd: ", error));
 }
