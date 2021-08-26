@@ -54,6 +54,8 @@ App.post('/post', (req, res) => {
         date: postCreationDate,
         username: req.body["username"],
         body: req.body["body"],
+        pos_longitude: req.body["pos_longitude"],
+        pos_latitude: req.body["pos_latitude"],
         like_counter: 0,
         users: []
     }

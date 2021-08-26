@@ -12,23 +12,6 @@
     </script>    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.6.1/css/ol.css" type="text/css">
     <style>
-      .map {
-        height: 250px;
-        width: 510px;
-      }
-
-      .ol-control{
-          background: none !important;
-      }
-
-      .ol-control button{
-        background-color: rgba(105, 70, 172,.5);
-      }
-
-      .ol-control button:hover{
-        background-color: rgba(106, 70, 172, 0.842);
-      }
-
       /* .ol-zoom-out,
       .ol-zoom-in{
         display: flex !important;
@@ -36,17 +19,6 @@
         align-items: center;
         border-radius: 50px !important;
       } */
-
-      canvas {
-          border-radius: 15px;
-      }
-
-      ul {
-          width: max-content;
-          font-size: 10px;
-          bottom: -5px;
-          background-color: rgba(255, 255, 255, 0.5);
-      }rgba(255, 255, 255, 0.5)
     </style>
     <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.6.1/build/ol.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com"> 
@@ -88,13 +60,13 @@
         </div>
     </header>
 
-    <div id="map" class="map"></div>
+    
     
 
     <main>
         <div id="allposts-wrapper">
             <div id="newpost-wrapper">
-                <div class="newpost-body">
+                <div id="newpost-body">
                     <textarea id="newpost-text" placeholder="Napisz o czym myślisz..." cols="40" rows="5"></textarea>
                     <div id="newpost-bottom">
                         <div id="newpost-buttons">
@@ -129,45 +101,20 @@
                     Wyślij
                 </div>
             </div>
+
             <div id="allposts-seperator">
                 All Posts
             </div>
+
             <div id="posts">
             </div>
-            <div id="posts-loading"></div>
+
+            <div id="page-bottom">
+                <div id="page-bottom-loading"></div>
+            </div>
         </div>
     </main>
 
-    <!-- <header>
-        <div id="header-logo">
-            <img id="logoimg" src="assets/logo.png">
-        </div>
-        <div id="header-account">
-            Eluwina
-        </div>
-        <div id="searchbar">
-            <input id="searchtext" type="text" placeholder="Search..."/>
-        </div>
-        <div id="header-account-btn">
-            <div class="btn-tab" id="tab1"></div>
-            <div class="btn-tab" id="tab2"></div>
-            <div class="btn-tab" id="tab3"></div>
-        </div>
-    </header>
-
-    <main>
-        <div id="newpost">
-            <textarea id="newpost-text" placeholder="Type what's on your mind..." cols="40" rows="5"></textarea>
-            <div id="newpost-btns">
-                <div id="newpost-counter"></div>
-                <div id="newpost-send" onclick="SendNewPost()">Wyślij</div>
-            </div>
-        </div>
-        <div id="posts">
-        </div>
-        <div id="getposts-btn" onclick="GetPosts()">Pobierz nowe posty</div>
-    </main> -->
-    
     <script src="assets/script.js"></script>
 </body>
 </html>

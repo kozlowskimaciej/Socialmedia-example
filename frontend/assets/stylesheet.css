@@ -21,6 +21,40 @@ header{
     border-bottom: 1px #E2E4E9 solid;
 }
 
+.map {
+    height: 250px;
+    width: auto;
+    padding: 15px;
+}
+
+.ol-control{
+      background: none !important;
+}
+
+.ol-control button{
+    background-color: rgba(105, 70, 172,.5) !important;
+}
+
+.ol-control button:hover{
+    background-color: rgba(106, 70, 172, 0.842) !important;
+}
+
+.post-body .map{
+    margin-top: 15px;
+    padding: 0px;
+}
+
+canvas {
+    border-radius: 15px;
+}
+
+ul {
+    width: max-content;
+    font-size: 10px;
+    bottom: -5px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
 #header-logo,
 #newpost_loc_button_wrapper:hover,
 #newpost_upl_button_wrapper:hover,
@@ -134,7 +168,7 @@ main{
     align-items: center;
 }
 
-.newpost-body{
+#newpost-body{
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -304,7 +338,16 @@ main{
     border-top:#E3E5EA 2px dashed;
 }
 
-#posts-loading{
+#page-bottom{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+#page-bottom-loading{
     width: 30px;
     height: 30px;
     border-radius: 50px;
