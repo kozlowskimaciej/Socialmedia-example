@@ -70,9 +70,17 @@ function drawMap(userLongitude, userLatitude, mapname) {
             features: [
                 new ol.Feature({
                     geometry: new ol.geom.Point(ol.proj.fromLonLat([userLongitude, userLatitude])),
-                    fillColor: '#6946AC'
                 })
             ]
+        }),
+        style: new ol.style.Style({
+            image: new ol.style.Circle({
+                radius: 14,
+                fill: new ol.style.Fill({color: [105, 70, 172,.5]}),
+                stroke: new ol.style.Stroke({
+                  color: '#6946AC', width: 2
+                })
+            })
         })
     });
     map.addLayer(point);
