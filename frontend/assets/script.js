@@ -31,6 +31,7 @@ function drawPreviewMap(userLongitude, userLatitude) {
         view: new ol.View({
             center: ol.proj.fromLonLat([userLongitude, userLatitude]),
             zoom: 17,
+            minZoom: 16,
             maxZoom: 18,
             extent: [min[0], min[1], min[0] + 6679.169447597, min[1] + 7424.1713883],
         })
