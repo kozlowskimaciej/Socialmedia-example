@@ -8,7 +8,7 @@ const App = Express();
 const NumberPostsToShow = 5;
 
 //USES
-Moment().format(); 
+Moment().format();
 App.use(Cors());
 App.use(Express.json());
 
@@ -29,7 +29,7 @@ App.get('/get', (req, res) => {
     for (var element of PostsArray) {
         if (postsCounter >= NumberPostsToShow) break;
         else if (element["uuid"] < lastSendUuid) {
-            lastSendUuid=element["uuid"];
+            lastSendUuid = element["uuid"];
             toSendArray.unshift(element);
             postsCounter += 1;
         }
@@ -41,7 +41,7 @@ App.get('/get', (req, res) => {
             'postsArray': toSendArray
         }
         res.send(packedPosts);
-        console.log(packedPosts);
+        console.log(postsCounter + "\n");
     }
 });
 
