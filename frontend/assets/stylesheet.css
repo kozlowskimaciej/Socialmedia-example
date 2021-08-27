@@ -22,6 +22,7 @@ header{
 }
 
 .map {
+    position: relative;
     height: 250px;
     width: auto;
     padding: 15px;
@@ -33,6 +34,7 @@ header{
 
 .ol-control button{
     background-color: rgba(105, 70, 172,.5) !important;
+    border: #6946AC 1px solid !important;
 }
 
 .ol-control button:hover{
@@ -42,6 +44,20 @@ header{
 .post-body .map{
     margin-top: 15px;
     padding: 0px;
+}
+
+#center{
+    position: absolute;
+    top:50%;
+    left: 50%;
+    width: 9px;
+    height: 9px;
+    transform: translate(-50%,-50%);
+    border-radius: 50px;
+
+    background-color: rgba(105, 70, 172,.5);
+    border: 2px solid #6946AC;
+    z-index: 9999;
 }
 
 canvas {

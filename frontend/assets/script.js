@@ -17,6 +17,10 @@ var addedPostsCounter = 0;
 moment.locale(language);
 
 function drawMap(userLongitude, userLatitude, mapname){
+    var min = ol.proj.fromLonLat([userLongitude-0.03, userLatitude-0.02]);
+    
+    //var max = ol.proj.fromLonLat([userLongitude+0.03, userLatitude+0.02]);
+
     var map = new ol.Map({
         target: mapname,
         layers: [
@@ -26,7 +30,8 @@ function drawMap(userLongitude, userLatitude, mapname){
         ],
         view: new ol.View({
           center: ol.proj.fromLonLat([userLongitude, userLatitude]),
-          zoom: 17
+          zoom: 17,
+          extent: [min[0], min[1], min[0]+6679.169447597, min[1]+7424.1713883],
         })
     });
 
@@ -40,7 +45,16 @@ function drawMap(userLongitude, userLatitude, mapname){
         })
     });
     map.addLayer(layer);
+    
+    // POBIERANIE WSPÓŁRZĘDNYCH PUNKTU ŚRODKOWEGO
+    
+    document.addEventListener('mouseup',()=>console.log(ol.proj.toLonLat(map.getView().getCenter())));
+    // setInterval(() => {
+    //     console.log(ol.proj.toLonLat(map.getView().getCenter()));
+    // }, 2000);
 }
+
+
 
 var options = {
     enableHighAccuracy: true,
@@ -54,6 +68,9 @@ function success(pos) {
     mapWrapper.setAttribute('id', 'map');
     var postBody = document.getElementById("newpost-body");
     postBody.append(mapWrapper);
+    var mapCenterPoint = document.createElement("div");
+    mapCenterPoint.setAttribute('id', 'center');
+    mapWrapper.append(mapCenterPoint);
     locationButton.removeEventListener('click',createMapPreview);
     locationButton.remove();
 
@@ -79,7 +96,9 @@ function createMapPreview(){
 locationButton.addEventListener('click',createMapPreview);
 
 function checkIfBottom(){
+    // trzeba ograniczyć sprawdzanie np. co 1s
     if(window.innerHeight+window.scrollY>document.body.clientHeight-50)GetPosts();
+    console.log("a");
 }
 
 document.addEventListener('scroll',checkIfBottom);
@@ -122,6 +141,7 @@ function DrawPost(postbody = "", postcreator = username, postdate = "", postavat
         var newpostMapWrapper = document.createElement("div");
         newpostMapWrapper.classList.add(`map`);
         newpostMapWrapper.setAttribute(`id`, `map-${postuuid}`);
+
         setTimeout(()=>{
             newpostBody.append(newpostMapWrapper);
 
@@ -140,9 +160,6 @@ async function SendNewPost() {
     const postCreationDate = moment.utc().format();
     //utctime = utctime.format("DD.MM.Y HH:mm:ss")
 
-    
-
-    //Jak dodawać mapy z frontendu?
     DrawPost(textArea.value, username, postCreationDate, userAvatar, 1, "fn-"+addedPostsCounter, userLongitude, userLatitude);
 
     addedPostsCounter++;
@@ -166,6 +183,13 @@ async function SendNewPost() {
     return response.json();
 }
 
+function stopGettingPosts(){
+    document.removeEventListener('scroll',checkIfBottom);
+                document.getElementById('page-bottom-loading').remove();
+                var pageBottomText = document.getElementById('page-bottom');
+                pageBottomText.innerText = "Brak więcej postów do wyświetlenia.";
+}
+
 async function GetPosts() {
     if (posts.length !== 0) lastpost = posts[0]['uuid'];
 
@@ -176,11 +200,10 @@ async function GetPosts() {
             {
                 posts = JSON.parse(res)["postsArray"];
                 DisplayPosts();
-            } else{
-                document.removeEventListener('scroll',checkIfBottom);
-                document.getElementById('page-bottom-loading').remove();
-                var pageBottomText = document.getElementById('page-bottom');
-                pageBottomText.innerText = "Brak więcej postów do wyświetlenia.";
+
+                if(posts.length<5)stopGettingPosts();
+            }else{
+                stopGettingPosts();
             }
         })
         .catch(error => console.log("Błąd: ", error));
