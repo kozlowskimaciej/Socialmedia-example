@@ -71,10 +71,11 @@ ul {
     background-color: rgba(255, 255, 255, 0.5);
 }
 
-#header-logo,
+#header-logo:hover,
 #newpost_loc_button_wrapper:hover,
 #newpost_upl_button_wrapper:hover,
-#header-useraccount:hover{
+.gradient-btn:hover,
+button:hover{
     cursor: pointer;
 }
 
@@ -85,9 +86,7 @@ ul {
     margin-left: 15px;
 }
 
-
-
-label{
+#header-searchbar-form{
     width:100%;
     height: min-content;
     display: flex;
@@ -120,24 +119,60 @@ label{
     border: 2px #E2E4E9 solid;
 }
 
+button{
+    background: none;
+    outline: none;
+    border: none;
+}
+
 #header-useraccount-wrapper{
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+.gradient-btn{
+    background: #6946AC;
+    background-image: linear-gradient(0 0,
+                        rgba(255, 255, 255, 0.2) 0%,
+                        rgba(255, 255, 255, 0.2) 35%,
+                        rgba(255, 255, 255, 0.6) 40%,
+                        rgba(255, 255, 255, 0.0) 50%
+                        ),
+                      linear-gradient(to left, #6946AC 0%, #6e56bd 100%);
+    background-image: -webkit-linear-gradient(top left,
+                      rgba(255, 255, 255, 0.2) 0%,
+                      rgba(255, 255, 255, 0.2) 35%,
+                      rgba(255, 255, 255, 0.6) 40%,
+                      rgba(255, 255, 255, 0.0) 50%
+                      ),
+                      -webkit-linear-gradient(right, #6946AC 0%, #6e56bd 100%);
+    background-image: -moz-linear-gradient(0 0,
+                      rgba(255, 255, 255, 0.2) 0%,
+                      rgba(255, 255, 255, 0.2) 35%,
+                      rgba(255, 255, 255, 0.6) 40%,
+                      rgba(255, 255, 255, 0.0) 50%
+                      ),
+                    -moz-linear-gradient(right, #6946AC 0%, #6e56bd 100%);
+    background-repeat: no-repeat;
+    background-position: -500px;
+    background-size: 300%;
+    transition: all 500ms ease-out;
+    border-radius: 50px;
+}
+
+.gradient-btn:hover{
+    background-position: 0;
+    transition-duration: 500ms;
+    -webkit-box-shadow: 0px 0px 21px -5px #6946AC; 
+    box-shadow: 0px 0px 21px -5px #6946AC;
+}
+
 #header-useraccount{
     width: 250px;
     height: 34px;
-    border-radius: 50px;
-    background: linear-gradient(145deg, #6946AC 0%, #6e56bd 100%);
     display: grid;
     grid-template-columns: auto 35px;
-    transition: all 400ms ease;
-}
-
-#header-useraccount:hover{
-    background: #7e5ac2;
 }
 
 #header-welcomeusername{
@@ -215,6 +250,17 @@ main{
     background: none;
 }
 
+#postphotowrapper{
+    height: auto;
+    width: 100%;
+    padding: 15px;
+    border-radius: 15px;
+}
+
+#postphoto{
+    width: 100%;
+}
+
 #newpost-bottom{
     width:100%;
     display: grid;
@@ -266,7 +312,6 @@ main{
     justify-content: center;
     align-items: center;
     color:white;
-    background: linear-gradient(145deg, #6946AC 0%, #6e56bd 100%);
     border-radius: 50px;
     padding: 8px 12px 8px 12px;
     font-size: 0.8rem;
@@ -291,7 +336,6 @@ main{
     top: -20px;
     height: 41px;
     width: 160px;
-    background: linear-gradient(145deg, #6946AC 0%, #6e56bd 100%);
     border-radius: 50px;
 }
 

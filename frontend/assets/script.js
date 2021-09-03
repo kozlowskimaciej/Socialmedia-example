@@ -147,6 +147,7 @@ async function DrawPost(postbody = "", postcreator = username, postdate = "", po
     //TWORZYMY NAGŁÓWEK POSTA
     var newpostInfo = document.createElement("div");
     newpostInfo.classList.add("post-info");
+    newpostInfo.classList.add("gradient-btn");
     newpostInfo.setAttribute("postcreationdate", timeFromNow);
 
     //DODAJEMY AWATAR DO NAGŁÓWKA
@@ -267,3 +268,5 @@ textArea.addEventListener("input", () => {
     if (numberoftext > 200) counter.style.color = "#6e56bd";
     else counter.style.color = "#8E929D";
 });
+
+document.getElementById("newpost-send").addEventListener("click",SendNewPost);

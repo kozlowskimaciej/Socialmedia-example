@@ -39,17 +39,20 @@
         
         <div id="header-searchbar-wrapper">
             <div id="header-searchbar">    
-                <label>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 35.876 35.885">
-                        <path id="Icon_ionic-ios-search" data-name="Icon ionic-ios-search" d="M39.955,37.781,29.977,27.709A14.219,14.219,0,1,0,27.819,29.9L37.732,39.9a1.536,1.536,0,0,0,2.167.056A1.546,1.546,0,0,0,39.955,37.781ZM18.8,30.017a11.228,11.228,0,1,1,7.941-3.289A11.159,11.159,0,0,1,18.8,30.017Z" transform="translate(-4.5 -4.493)" fill="#9398a5"/>
-                    </svg>   
+                <form  id = "header-searchbar-form">
+                    <button type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 35.876 35.885">
+                            <path id="Icon_ionic-ios-search" data-name="Icon ionic-ios-search" d="M39.955,37.781,29.977,27.709A14.219,14.219,0,1,0,27.819,29.9L37.732,39.9a1.536,1.536,0,0,0,2.167.056A1.546,1.546,0,0,0,39.955,37.781ZM18.8,30.017a11.228,11.228,0,1,1,7.941-3.289A11.159,11.159,0,0,1,18.8,30.017Z" transform="translate(-4.5 -4.493)" fill="#9398a5"/>
+                        </svg> 
+                    </button>
+                      
                     <input id="header-searchtext" type="text" placeholder="Wyszukaj"/>
-                </label>
+                </form>
             </div>
         </div>
 
         <div id="header-useraccount-wrapper">
-            <div id="header-useraccount">
+            <div id="header-useraccount" class="gradient-btn">
                 <div id="header-welcomeusername">
                     Witaj, <span id="header-username">yourname</span>!
                 </div>
@@ -68,6 +71,7 @@
             <div id="newpost-wrapper">
                 <div id="newpost-body">
                     <textarea id="newpost-text" placeholder="Napisz o czym myślisz..." cols="40" rows="5"></textarea>
+                    
                     <div id="newpost-bottom">
                         <div id="newpost-buttons">
                             <div id="newpost_loc_button_wrapper">
@@ -94,7 +98,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="newpost-send" onclick="SendNewPost()">
+                <div id="newpost-send" class="gradient-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="15.077" height="15.075" viewBox="0 0 15.077 15.075">
                         <path id="Icon_ionic-ios-send" data-name="Icon ionic-ios-send" d="M19.1,4.537,4.69,10.819a.33.33,0,0,0,.012.6l3.9,2.2a.629.629,0,0,0,.719-.071l7.688-6.628c.051-.043.173-.126.22-.079s-.027.169-.071.22L10.5,14.557a.627.627,0,0,0-.063.75l2.548,4.088a.332.332,0,0,0,.6-.008l5.96-14.414A.33.33,0,0,0,19.1,4.537Z" transform="translate(-4.503 -4.503)" fill="#fff"/>
                     </svg>                       
