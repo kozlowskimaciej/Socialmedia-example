@@ -116,7 +116,8 @@ function success(pos) {
 };
 
 function error(err) {
-    console.warn(`ERROR(${err.code}): ${err.message}`);
+    console.warn(err);
+    drawError("Nie możemy pobrać twojej lokalizacji.");
 };
 
 function createMapPreview() {
@@ -209,7 +210,8 @@ async function SendNewPost() {
         pos_latitude: setUserLatitude
     }
 
-    const response = await fetch("http://localhost:4500/post", {
+    try{
+        const response = await fetch("http://localhost:4500/post", {
         method: "POST",
         body: JSON.stringify(post),
         headers: {
@@ -219,6 +221,12 @@ async function SendNewPost() {
     });
 
     return response.json();
+    }
+    catch(err){
+        console.log(err);
+        drawError("Serwer nie odpowiada. Post nie został dodany.");
+    }
+    
 }
 
 function stopGettingPosts() {
@@ -245,17 +253,15 @@ async function GetPosts() {
                 stopGettingPosts();
             }
         })
-        .catch(error => console.log("Błąd: ", error));
+        .catch(err => {
+            console.log(err);
+            drawError("Serwer nie odpowiada. Wczytanie nowych postów jest niemożliwe.");
+        });
 }
 
 async function DisplayPosts() {
-    try {
-        for (var i = posts.length - 1; i >= 0; i--) {
-            DrawPost(posts[i]['body'], posts[i]['username'], posts[i]['date'], userAvatar, 0, posts[i]['uuid'], posts[i]['pos_longitude'], posts[i]['pos_latitude']);
-        }
-    }
-    catch (err) {
-        console.log(err);
+    for (var i = posts.length - 1; i >= 0; i--) {
+        DrawPost(posts[i]['body'], posts[i]['username'], posts[i]['date'], userAvatar, 0, posts[i]['uuid'], posts[i]['pos_longitude'], posts[i]['pos_latitude']);
     }
 }
 
@@ -270,3 +276,14 @@ textArea.addEventListener("input", () => {
 });
 
 document.getElementById("newpost-send").addEventListener("click",SendNewPost);
+
+function drawError(msg){
+    iziToast.error({
+        id: 'error',
+        title: 'Wystąpił problem!',
+        message: msg,
+        backgroundColor: 'rgb(255, 153, 153)',
+        position: 'topRight',
+        transitionIn: 'fadeInDown'
+    });
+}

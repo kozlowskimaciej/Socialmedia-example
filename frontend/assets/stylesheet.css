@@ -1,9 +1,17 @@
+:root{
+    --purple: #6946AC;
+    --light-purple: #6e56bd;
+    --light-gray: #E2E4E9;
+    --gray: #8E929D;
+    --dark-gray: #333;
+}
+
 html{
     scroll-behavior: smooth;
     font-family: 'Lato', sans-serif;
     font-weight: 400;
     font-size: 17px;
-    color: #333333;
+    color: var(--dark-gray);
 }
 
 body{
@@ -18,7 +26,14 @@ header{
     width: 100%;
     height: 50px;
     background-color: white;
-    border-bottom: 1px #E2E4E9 solid;
+    border-bottom: 1px var(--light-gray) solid;
+}
+
+#site-wrapper{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    opacity: 1;
 }
 
 .map {
@@ -32,9 +47,11 @@ header{
       background: none !important;
 }
 
+
+
 .ol-control button{
     background-color: rgba(105, 70, 172,.5) !important;
-    border: #6946AC 1px solid !important;
+    border: var(--purple) 1px solid !important;
 }
 
 .ol-control button:hover{
@@ -56,7 +73,7 @@ header{
     border-radius: 50px;
 
     background-color: rgba(105, 70, 172,.5);
-    border: 2px solid #6946AC;
+    border: 2px solid var(--purple);
     z-index: 9999;
 }
 
@@ -101,7 +118,7 @@ button:hover{
     border: none;
     outline:none;
     background: none;
-    color: #333333;
+    color: var(--dark-gray);
 }
 
 #header-searchbar-wrapper{
@@ -116,7 +133,7 @@ button:hover{
     justify-content: left;
     width:80%;
     border-radius: 50px;
-    border: 2px #E2E4E9 solid;
+    border: 2px var(--light-gray) solid;
 }
 
 button{
@@ -132,28 +149,28 @@ button{
 }
 
 .gradient-btn{
-    background: #6946AC;
+    background: var(--purple);
     background-image: linear-gradient(0 0,
                         rgba(255, 255, 255, 0.2) 0%,
                         rgba(255, 255, 255, 0.2) 35%,
                         rgba(255, 255, 255, 0.6) 40%,
                         rgba(255, 255, 255, 0.0) 50%
                         ),
-                      linear-gradient(to left, #6946AC 0%, #6e56bd 100%);
+                      linear-gradient(to left, var(--purple) 0%, var(--light-purple) 100%);
     background-image: -webkit-linear-gradient(top left,
                       rgba(255, 255, 255, 0.2) 0%,
                       rgba(255, 255, 255, 0.2) 35%,
                       rgba(255, 255, 255, 0.6) 40%,
                       rgba(255, 255, 255, 0.0) 50%
                       ),
-                      -webkit-linear-gradient(right, #6946AC 0%, #6e56bd 100%);
+                      -webkit-linear-gradient(right, var(--purple) 0%, var(--light-purple) 100%);
     background-image: -moz-linear-gradient(0 0,
                       rgba(255, 255, 255, 0.2) 0%,
                       rgba(255, 255, 255, 0.2) 35%,
                       rgba(255, 255, 255, 0.6) 40%,
                       rgba(255, 255, 255, 0.0) 50%
                       ),
-                    -moz-linear-gradient(right, #6946AC 0%, #6e56bd 100%);
+                    -moz-linear-gradient(right, var(--purple) 0%, var(--light-purple) 100%);
     background-repeat: no-repeat;
     background-position: -500px;
     background-size: 300%;
@@ -161,11 +178,20 @@ button{
     border-radius: 50px;
 }
 
+.noselect{
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
 .gradient-btn:hover{
     background-position: 0;
     transition-duration: 500ms;
-    -webkit-box-shadow: 0px 0px 21px -5px #6946AC; 
-    box-shadow: 0px 0px 21px -5px #6946AC;
+    -webkit-box-shadow: 0px 0px 21px -5px var(--purple); 
+    box-shadow: 0px 0px 21px -5px var(--purple);
 }
 
 #header-useraccount{
@@ -227,13 +253,13 @@ main{
     width: 100%;
     background-color: white;
     border-radius: 15px;
-    border: 2px #E2E4E9 solid;
+    border: 2px var(--light-gray) solid;
 }
 
 #newpost-counter{
     font-size: 11px;
     font-weight: 300;
-    color: #8E929D;
+    color: var(--gray);
 }
 
 #newpost-text{
@@ -243,7 +269,7 @@ main{
     font-size: 17px;
     font-family: 'Lato', sans-serif;
     font-weight: 400;
-    color: #333333;
+    color: var(--dark-gray);
     resize: none;
     outline: none;
     border: none;
@@ -285,11 +311,11 @@ main{
 }
 
 #newpost_loc_button_wrapper:hover svg g path{
-    stroke:#8E929D;
+    stroke:var(--gray);
 }
 
 #newpost_upl_button_wrapper:hover svg path{
-    fill:#8E929D;
+    fill:var(--gray);
 }
 
 #newpost-counter-wrapper{
@@ -341,7 +367,7 @@ main{
 
 .post-info::before{
     position: absolute;
-    color: #8E929D;
+    color: var(--gray);
     font-size: 0.7rem;
     width: max-content;
     left: 170px;
@@ -375,7 +401,7 @@ main{
     padding: 30px 15px 15px 15px;
     background-color: white;
     border-radius: 15px;
-    border: 2px #E2E4E9 solid;
+    border: 2px var(--light-gray) solid;
     word-wrap: break-word;
 }
 
@@ -395,7 +421,7 @@ main{
     right: -20%;
     left: -20%;
     top: -10px;
-    border-top:#E3E5EA 2px dashed;
+    border-top:var(--light-gray) 2px dashed;
 }
 
 #page-bottom{
@@ -411,21 +437,31 @@ main{
     width: 30px;
     height: 30px;
     border-radius: 50px;
-    background-color: #6946AC;
+    background-color: var(--purple);
     animation: spinning_wheel 1s ease infinite;
+}
+
+footer{
+    font-weight: 700;
+    font-size: 0.8rem;
+    color:var(--gray);
+    position: fixed;
+    left:50%;
+    bottom: 5px;
+    transform: translateX(-50%);
 }
 
 @keyframes spinning_wheel {
     0%{
-        background-color: #6946AC;
+        background-color: var(--purple);
         transform: rotateX(0deg);
     }
     50%{
-        background-color: #8E929D;
+        background-color: var(--gray);
         transform: rotateX(180deg);
     }
     100%{
-        background-color: #6946AC;
+        background-color: var(--purple);
         transform: rotateX(360deg);
     }
 }
