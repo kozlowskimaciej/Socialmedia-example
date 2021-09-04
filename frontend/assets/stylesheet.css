@@ -442,7 +442,6 @@ main{
 }
 
 footer{
-    font-weight: 700;
     font-size: 0.8rem;
     color:var(--gray);
     position: fixed;
